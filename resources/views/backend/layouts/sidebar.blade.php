@@ -14,19 +14,40 @@
                              <span>Dashboard</span>
                          </a>
                      </li>
+                     <li class="menu-title">Products</li>
+                     <li>
+                         <a href="{{ route('admin.categories.index') }}" class="waves-effect">
+                             <i class="ti-layers-alt"></i>
+                             <span>Categories</span>
+                         </a>
+                     </li>
+                     <li>
+                         <a href="javascript: void(0);" class="has-arrow waves-effect">
+                             <i class=" ti-package"></i>
+                             <span>Products</span>
+                         </a>
+                         <ul class="sub-menu" aria-expanded="false">
+                             <li><a href="{{ route('admin.products.index') }}">View</a></li>
+                             <li><a href="{{ route('admin.products.create') }}">Create</a></li>
+                         </ul>
+                     </li>
+
+                     <li>
+
+                     </li>
                      <li class="menu-title">Account</li>
 
                      <li>
-                         <a href="{{ route('admin.account.index') }}" class="waves-effect">
+                         <a href="{{ route('admin.accounts.index') }}" class="waves-effect">
                              <i class="ti-lock"></i>
                              <span>Admin</span>
                          </a>
                      </li>
 
                      <li>
-                         <a href="{{ route('admin.user.index') }}" class="waves-effect">
+                         <a href="{{ route('admin.users.index') }}" class="waves-effect">
                              <i class="ti-user"></i>
-                             <span>User</span>
+                             <span>Agents</span>
                          </a>
                      </li>
                  </ul>

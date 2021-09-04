@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\OauthAccessToken;
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -18,9 +19,7 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'agent_id', 'email', 'phone', 'date_of_birth', 'address', 'group_one_level', 'group_two_level', 'refer_code', 'invited_by', 'qty_purchased', 'password', 'profile'
     ];
 
     /**
@@ -41,4 +40,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function AauthAcessToken()
+    {
+        return $this->hasMany(OauthAccessToken::class);
+    }
 }

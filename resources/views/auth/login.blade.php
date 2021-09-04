@@ -16,13 +16,16 @@
                         </div>
 
                         <div class="card-body p-4">
+                            @if ($errors->any())
+                                {{ implode('', $errors->all('<div>:message</div>')) }}
+                            @endif
                             <div class="p-3">
                                 <form class="mt-4" action="{{ route('login') }}" method="POST">
                                     @csrf
                                     <div class="mb-3">
-                                        <label class="form-label" for="email">Email</label>
-                                        <input type="text" class="form-control" id="email" placeholder="Enter email address"
-                                            name="email">
+                                        <label class="form-label" for="agent_id">Agent ID</label>
+                                        <input type="text" class="form-control" id="agent_id" placeholder="Enter Agent ID"
+                                            name="agent_id">
                                     </div>
 
                                     <div class="mb-3">
@@ -61,7 +64,7 @@
                     </div>
 
                     <div class="mt-5 text-center">
-                        <p>Don't have an account ? <a href="{{ route('register') }}}}" class="fw-medium text-primary">
+                        <p>Don't have an account ? <a href="{{ route('register') }}" class="fw-medium text-primary">
                                 Sign up now
                             </a> </p>
                         <script>

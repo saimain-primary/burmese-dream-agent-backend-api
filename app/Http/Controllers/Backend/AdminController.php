@@ -111,7 +111,7 @@ class AdminController extends Controller
         $admins = Admin::query();
 
         return Datatables::of($admins)->addColumn('action', function ($row) {
-            $html = '<a href="' . url('admin/account/' . $row->id . '/edit') . '" class="btn btn-sm btn-secondary">Edit</a> ';
+            $html = '<a href="' . url('admin/accounts/' . $row->id . '/edit') . '" class="btn btn-sm btn-secondary">Edit</a> ';
             return $html;
         })->editColumn('created_at', function ($request) {
             return $request->created_at->format('Y-m-d'); // human readable format

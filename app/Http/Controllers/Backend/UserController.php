@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Models\User;
+use App\Exports\UsersExport;
+use App\Imports\UsersImport;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Yajra\Datatables\Datatables;
+use Maatwebsite\Excel\Facades\Excel;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class UserController extends Controller
 {
@@ -38,10 +42,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $agent_id = IdGenerator::generate(['table' => 'users', 'field' => 'agent_id', 'length' => 7, 'prefix' => 'BD-']);
+
         $user = new User();
+        $user->agent_id = $agent_id;
         $user->name = $request->name;
+        $user->phone = $request->phone;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->refer_code = $this->generateUniqueCode();
         $user->save();
 
         return back()->with('success', 'Successfully Created.');
@@ -55,7 +64,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('backend.user.show', compact('user'));
     }
 
     /**
@@ -111,12 +121,44 @@ class UserController extends Controller
         $users = User::query();
 
         return Datatables::of($users)->addColumn('action', function ($row) {
-            $html = '<a href="' . url('admin/user/' . $row->id . '/edit') . '" class="btn btn-sm btn-secondary">Edit</a> ';
+            $html = '<a href="' . url('admin/users/' . $row->id . '/edit') . '" class="btn btn-sm btn-secondary">Edit</a><a href="' . url('admin/users/' . $row->id) . '" class="mx-2 btn btn-sm btn-primary">View</a> ';
             return $html;
         })->editColumn('created_at', function ($request) {
             return $request->created_at->format('Y-m-d'); // human readable format
         })->editColumn('updated_at', function ($request) {
             return $request->updated_at->format('Y-m-d'); // human readable format
         })->make(true);
+    }
+
+    public function generateUniqueCode()
+    {
+        do {
+            $code = random_int(10000, 99999);
+        } while (User::where("refer_code", "=", $code)->first());
+
+        return $code;
+    }
+
+    public function exportExcel()
+    {
+        $file_name = 'agent_export_' . date('Ymd') . time() . '.xlsx';
+        return Excel::download(new UsersExport, $file_name);
+    }
+
+    public function importExcel(Request $request)
+    {
+
+
+        $request->validate([
+            'file' => 'required|mimes:xlsx'
+        ]);
+
+        $file  = $request->file('file');
+        try {
+            Excel::import(new UsersImport, $file);
+            return back()->with('success', 'Import data from excel success.');;
+        } catch (\Throwable $th) {
+            return back()->with('fail', 'Import data from excel error.');
+        }
     }
 }

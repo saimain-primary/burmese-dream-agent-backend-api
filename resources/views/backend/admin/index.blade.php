@@ -4,7 +4,6 @@
     <div class="page-title-box">
         <div class="row align-items-center">
             <div class="col-md-8">
-                <h6 class="page-title">Index</h6>
             </div>
         </div>
     </div>
@@ -14,14 +13,14 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title mb-3">Create Admin Account</h3>
+                    <h3 class="mb-3 card-title">Create Admin Account</h3>
                     @if (Session::has('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             <strong>Well done!</strong> {{ Session::get('success') }}
                         </div>
                     @endif
-                    <form class="custom-validation" action="{{ route('admin.account.store') }}" method="POST">
+                    <form class="custom-validation" action="{{ route('admin.accounts.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label">Name</label>
