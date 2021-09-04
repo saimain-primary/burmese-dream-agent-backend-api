@@ -137,6 +137,8 @@ class ProductController extends Controller
             return $html;
         })->addColumn('category', function ($row) {
             return $row->category->name;
+        })->addColumn('description', function ($row) {
+            return Str::limit($row->description, 20, '...');
         })->editColumn('created_at', function ($request) {
             return $request->created_at->format('Y-m-d'); // human readable format
         })->editColumn('updated_at', function ($request) {

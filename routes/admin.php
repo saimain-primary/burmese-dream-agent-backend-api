@@ -10,6 +10,7 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Backend')->as('admi
     Route::resource('users', 'UserController');
     Route::resource('categories', 'CategoryController');
     Route::resource('products', 'ProductController');
+    Route::resource('orders', 'OrderController');
 
 
     Route::get('export/users', 'UserController@exportExcel')->name('user.excel.export');

@@ -14,6 +14,13 @@
                              <span>Dashboard</span>
                          </a>
                      </li>
+                     <li class="menu-title">Orders</li>
+                     <li>
+                         <a href="{{ route('admin.orders.index') }}" class="waves-effect">
+                             <i class="ti-shopping-cart-full "></i>
+                             <span>Orders</span>
+                         </a>
+                     </li>
                      <li class="menu-title">Products</li>
                      <li>
                          <a href="{{ route('admin.categories.index') }}" class="waves-effect">
