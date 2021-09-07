@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Backend;
 use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Yajra\Datatables\Datatables;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class ProductController extends Controller
 {
@@ -54,7 +55,10 @@ class ProductController extends Controller
             return 'fail';
         }
 
+
+
         $product = new Product();
+        $product->code = Str::slug($request->name) . $this->generateUniqueCode();
         $product->slug = Str::slug($request->name);
         $product->name = $request->name;
         $product->category_id = $request->category_id;
@@ -144,5 +148,14 @@ class ProductController extends Controller
         })->editColumn('updated_at', function ($request) {
             return $request->updated_at->format('Y-m-d'); // human readable format
         })->make(true);
+    }
+
+    public function generateUniqueCode()
+    {
+        do {
+            $code = random_int(1000, 9999);
+        } while (Product::where("code", "=", $code)->first());
+
+        return $code;
     }
 }

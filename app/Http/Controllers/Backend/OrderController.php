@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 
 class OrderController extends Controller
 {
@@ -14,7 +17,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.order.index');
     }
 
     /**
@@ -46,7 +49,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::find($id);
+
+        return view('backend.order.show', compact('order'));
     }
 
     /**
@@ -81,5 +86,19 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function todayOrderSsd()
+    {
+        $orders = Order::whereDate("created_at", Carbon::today())->where('is_success', false)->get();
+
+        return Datatables::of($orders)->addColumn('action', function ($row) {
+            $html = '<a href="' . url('admin/orders/' . $row->id) . '" class="mx-2 btn btn-sm btn-primary">View Order</a>';
+            return $html;
+        })->addColumn('time', function ($row) {
+            return $row->created_at->format('h:i A'); //
+        })->editColumn('date', function ($request) {
+            return $request->created_at->format('Y-m-d'); // human readable format
+        })->rawColumns(['action'])->make(true);
     }
 }

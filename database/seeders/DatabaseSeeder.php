@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\Admin;
 use Illuminate\Database\Seeder;
+use Database\Seeders\UserSeeder;
+use Database\Seeders\ProductSeeder;
+use Database\Seeders\CategorySeeder;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -20,6 +23,11 @@ class DatabaseSeeder extends Seeder
             'name' => 'Burmese Admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('admin123'),
+        ]);
+        $this->call([
+            UserSeeder::class,
+            CategorySeeder::class,
+            ProductSeeder::class,
         ]);
     }
 }

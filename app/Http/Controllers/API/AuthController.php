@@ -18,10 +18,7 @@ class AuthController extends Controller
 
         if (Auth::attempt(['agent_id' => $request->agent_id, 'password' => $request->password])) {
             $agent = Auth::user();
-
             $token = $agent->createToken($agent->name)->accessToken;
-
-
             return response()->json([
                 'status' => 200,
                 'success' => true,

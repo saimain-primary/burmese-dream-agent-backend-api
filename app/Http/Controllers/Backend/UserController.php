@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use phpseclib3\System\SSH\Agent;
 
 class UserController extends Controller
 {
@@ -160,5 +161,12 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             return back()->with('fail', 'Import data from excel error.');
         }
+    }
+
+    public function getAgent(Request $request)
+    {
+        $user_id = $request->user_id;
+        $agent = User::find($user_id);
+        return response()->json(['success' => $agent, 200]);
     }
 }

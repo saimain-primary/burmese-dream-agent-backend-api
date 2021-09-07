@@ -13,5 +13,7 @@ Route::namespace('API')->group(function () {
     Route::middleware('auth:api')->group(function () {
         Route::get('user', 'AuthController@user');
         Route::post('logout', 'AuthController@logout');
+
+        Route::post('order/checkout', 'OrderController@checkout');
     });
 });

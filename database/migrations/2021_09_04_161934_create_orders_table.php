@@ -19,6 +19,9 @@ class CreateOrdersTable extends Migration
             $table->foreignIdFor(User::class);
             $table->string('order_id');
             $table->text('order');
+            $table->string('group_one_total')->nullable();
+            $table->string('group_two_total')->nullable();
+            $table->string('total_amount')->nullable();
             $table->string('payment');
             $table->string('payment_slip');
             $table->boolean('is_success')->default(false);

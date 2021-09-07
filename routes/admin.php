@@ -16,7 +16,12 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Backend')->as('admi
     Route::get('export/users', 'UserController@exportExcel')->name('user.excel.export');
     Route::post('import/users', 'UserController@importExcel')->name('user.excel.import');
 
+
+
     Route::get('admin-user/datatable/ssd', 'AdminController@ssd');
     Route::get('user/datatable/ssd', 'UserController@ssd');
     Route::get('products/datatable/ssd', 'ProductController@ssd');
+    Route::get('orders/today/datatable/ssd', 'OrderController@todayOrderSsd');
+
+    Route::get('agents/{id}', 'UserController@getAgent');
 });
