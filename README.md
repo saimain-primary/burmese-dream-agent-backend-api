@@ -1,10 +1,12 @@
 ### Burmese Dream API Documentation
----
-Contents
-- [Login](#Login)
+
+- [Authentication](#Login)
+    - [Login](#Login)
+    - [Logout](#Logout)
 - [Categories](#Categories)
+- [Get Category & its Products](#Cagetory)
 ### Open Endpoints
----
+
 Open endpoints require no Authentication.
 
 <div id="Login"></div>
@@ -15,7 +17,7 @@ Open endpoints require no Authentication.
 | agent_id | text |unique id of agent| BD-0001 | Yes |
 | password | text |  | password123 | Yes |
 
-Response Example
+#### Response Example
 
 ```json
 {
@@ -39,8 +41,84 @@ Response Example
 
 <div id="Categories"></div>
 
-#### Categories : <code>POST /api/login</code>  
-| Parameter   | Type | Description | Example | Required |
-| ----------- | ----------- | ----------- | ----- | ----- |
-| agent_id | text |unique id of agent| BD-0001 | :heavy_check_mark: |
-| password | text | - | password123 | :heavy_check_mark: |
+#### Categories : <code>GET /api/categories</code>  
+
+#### Response Example
+
+```json
+{
+    "status": 200,
+    "success": true,
+    "data": [
+        {
+            "id": 1,
+            "group": "1",
+            "slug": "lip-stick",
+            "name": "Lip Stick"
+        },
+        {
+            "id": 2,
+            "group": "1",
+            "slug": "clay-mask",
+            "name": "Clay Mask"
+        },
+    ]
+}
+```
+
+<div id="Category"></div>
+
+#### Get Category & its Products : <code>GET /api/categories/{slug}</code>  
+
+#### Example Request
+
+<code>Get /api/categories/lip-stick</code>
+
+#### Example Response
+
+```json
+{
+    "status": 200,
+    "success": true,
+    "data": {
+        "id": 1,
+        "group": "1",
+        "slug": "lip-stick",
+        "name": "Lip Stick",
+        "products": [
+            {
+                "id": 1,
+                "code": "8736",
+                "slug": "inle",
+                "name": "INLE",
+                "category": {
+                    "slug": "lip-stick",
+                    "name": "Lip Stick"
+                },
+                "description": "A mauve nude tone shade, the Inle is universally flattering—perfect.",
+                "price": "8500",
+                "wholesale": [
+                    {
+                        "qty": 12,
+                        "price": 7000
+                    },
+                    {
+                        "qty": 24,
+                        "price": 6950
+                    }
+                ],
+                "images": [
+                    "https://codexmm.us-east-1.linodeobjects.com/BurmeseDream/Products/Images/163103311847.webp",
+                    "https://codexmm.us-east-1.linodeobjects.com/BurmeseDream/Products/Images/163103316567.webp",
+                ],
+                "how_to_use": "Our super-light liquid lipsticks are really easy to apply and dry to a smooth, matte finish. Hydrated and exfoliated lips give the best results.",
+                "features": "Easy-application",
+                "ingredients": "Polyisobutene, Ethylhexyl Palmitate, Mineral Oil, Caprylic/Capric Triglyceride, Silica, Microcrystalline Wax, Phenoxyethanol, Caprylyl Glycol, Fragrance.",
+                "weight": "0.14 FL. OZ / 4 ML",
+                "available": 1,
+                "url": "http://127.0.0.1:8000/api/products/inle"
+            }
+        ]
+    }
+}
+```
