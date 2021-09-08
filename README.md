@@ -3,15 +3,25 @@
 - [Authentication](#Login)
     - [Login](#Login)
     - [Logout](#Logout)
+    - [User Details](#UserDetails)
 - [Categories](#Categories)
 - [Get Category & its Products](#Cagetory)
+### Require Authentication
+
+- [User Details](#UserDetails)
+- [Logout](#Logout)
+
 ### Open Endpoints
 
-Open endpoints require no Authentication.
+- [Login](#Login)
+- [Categories](#Categories)
+- [Get Category & its Products](#Cagetory)
+
+
 
 <div id="Login"></div>
 
-#### Login : <code>POST /api/login</code>  
+### Login : <code>POST /api/login</code>  
 | Parameter   | Type | Description | Example | Required |
 | ----------- | ----------- | ----------- | ----- | ----- |
 | agent_id | text |unique id of agent| BD-0001 | Yes |
@@ -39,9 +49,51 @@ Open endpoints require no Authentication.
 }
 ```
 
+<div id="Logout"></div>
+
+### Logout : <code>POST /api/logout</code>
+
+### Response Example
+
+```json
+{
+    "status": 200,
+    "success": true,
+    "data": {
+        "message": "Logout Success."
+    }
+}
+```
+
+<div id="UserDetails"></div>
+
+### User Details (Agent) <code>GET /api/user</code>
+
+#### Response Example
+
+```json
+{
+    "status": 200,
+    "success": true,
+    "data": {
+        "agent_id": "BD-0001",
+        "name": "Mg Mg",
+        "email": "mgmg@gmail.com",
+        "phone": "09979857473",
+        "date_of_birth": "3-8-2000",
+        "address": "Kyaukme",
+        "group_one_level": null,
+        "group_two_level": null,
+        "refer_code": "63272",
+        "invited_by": null
+    }
+}
+```
+
+
 <div id="Categories"></div>
 
-#### Categories : <code>GET /api/categories</code>  
+### Categories : <code>GET /api/categories</code>  
 
 #### Response Example
 
@@ -68,13 +120,13 @@ Open endpoints require no Authentication.
 
 <div id="Category"></div>
 
-#### Get Category & its Products : <code>GET /api/categories/{slug}</code>  
+### Get Category & its Products : <code>GET /api/categories/{slug}</code>  
 
 #### Example Request
 
 <code>Get /api/categories/lip-stick</code>
 
-#### Example Response
+#### Response Example
 
 ```json
 {
