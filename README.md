@@ -6,7 +6,8 @@
     - [User Details](#UserDetails)
 - [Categories](#Categories)
 - [Get Category & its Products](#Cagetory)
-- [View Cart](#ViewCart)
+- [View Cart](#viewCart)
+- [Checkout Order](#checkoutOrder)
 ### Require Authentication
 
 - [User Details](#UserDetails)
@@ -177,6 +178,7 @@
     }
 }
 ```
+<div id="viewCart"></div>
 
 ### View Cart <code>POST /api/cart</code>
 
@@ -228,3 +230,39 @@
     }
 }
 ```
+
+
+<div id="checkoutOrder"></div>
+
+### Checkout Order <code>POST /api/order/checkout</code>
+
+| Parameter   | Type | Description | Example | Required |
+| ----------- | ----------- | ----------- | ----- | ----- |
+| products | array | array of products and its qty | ```[{"product_id":1,"qty":13},{"product_id":2,"qty":5}]``` | Yes |
+| payment | text | payment methond | Kpay | Yes |
+| payment_slip | image | screenshot of payment success | screenshot.png | Yes |
+
+#### Response Example
+
+```json
+{
+    "status": 200,
+    "success": true,
+    "data": {
+        "order_id": "BDO-3056",
+        "products": "[{\"product_id\":1,\"qty\":13},{\"product_id\":2,\"qty\":5},{\"product_id\":3,\"qty\":10},{\"product_id\":4,\"qty\":40}]",
+        "group_one_total_amount": 143500,
+        "group_two_total_amount": 323650,
+        "total_amount": 467150,
+        "payment": "Kpay",
+        "ordered_at": "08-09-2021 06:55 PM"
+    }
+}
+```
+
+### Author
+
+justsaimain
+
+- [justaimain]('https://github.com/justsaimain')
+- [facebook.com/saimain.dev]('https://facebook.com/saimain.dev')
