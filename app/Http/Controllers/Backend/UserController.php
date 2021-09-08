@@ -43,7 +43,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $agent_id = IdGenerator::generate(['table' => 'users', 'field' => 'agent_id', 'length' => 7, 'prefix' => 'BD-']);
+        $agent_id = IdGenerator::generate(['table' => 'users', 'field' => 'agent_id', 'length' => 7, 'prefix' => 'BD']);
 
         $user = new User();
         $user->agent_id = $agent_id;
