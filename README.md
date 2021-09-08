@@ -262,7 +262,5 @@
 
 ### Author
 
-justsaimain
-
-- [justaimain]('https://github.com/justsaimain')
+- [github.com/justaimain]('https://github.com/justsaimain')
 - [facebook.com/saimain.dev]('https://facebook.com/saimain.dev')
