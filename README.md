@@ -6,9 +6,12 @@
     - [User Details](#UserDetails)
 - [Categories](#Categories)
 - [Get Category & its Products](#Cagetory)
+- [View Cart](#ViewCart)
 ### Require Authentication
 
 - [User Details](#UserDetails)
+- [View Cart](#ViewCart)
+- [Checkout Order](#checkoutOrder)
 - [Logout](#Logout)
 
 ### Open Endpoints
@@ -171,6 +174,57 @@
                 "url": "http://127.0.0.1:8000/api/products/inle"
             }
         ]
+    }
+}
+```
+
+### View Cart <code>POST /api/cart</code>
+
+| Parameter   | Type | Description | Example | Required |
+| ----------- | ----------- | ----------- | ----- | ----- |
+| products | array | array of products and its qty | ```[{"product_id":1,"qty":13},{"product_id":2,"qty":5}]``` | Yes |
+
+#### Response Example
+
+<small>Not Authenticated</small>
+```json 
+{
+    "status": 500,
+    "success": false,
+    "data": {
+        "message": "Unauthenticated."
+    }
+}
+```
+
+<small>Authenticated</small>
+
+```json
+{
+    "status": 200,
+    "success": true,
+    "data": {
+        "products": [
+            {
+                "product_id": 1,
+                "qty": 13
+            },
+            {
+                "product_id": 2,
+                "qty": 5
+            },
+            {
+                "product_id": 3,
+                "qty": 10
+            },
+            {
+                "product_id": 4,
+                "qty": 40
+            }
+        ],
+        "group_one_total_amount": 143500,
+        "group_two_total_amount": 323650,
+        "total_amount": 467150
     }
 }
 ```
